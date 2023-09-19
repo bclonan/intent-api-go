@@ -5,14 +5,16 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
+	"net/http"
+
+	"github.com/bclonan/intent-api-go/main/config"
+	"github.com/bclonan/intent-api-go/main/controller/slack"
+	"github.com/bclonan/intent-api-go/main/model"
+	"github.com/bclonan/intent-api-go/main/utils/openssl"
 	"github.com/bluele/slack"
 	"github.com/gin-gonic/gin"
 	"github.com/mitchellh/mapstructure"
-	"io/ioutil"
-	"kairos/main/config"
-	"kairos/main/model"
-	"kairos/main/utils/openssl"
-	"net/http"
 )
 
 //func NewNotification() {
@@ -37,9 +39,9 @@ func SendMessage(userRequestData model.RequestData, intentData map[string]interf
 	fmt.Println(userDataSlack)
 
 	type InternalSlackResponse struct {
-		Text    string `json:"text"binding:"required,min=1"`
-		Channel string `json:"channel"binding:"required,min=1"`
-		APIKey  string `json:"apiKey"binding:"required,min=1"`
+		Text     string `json:"text"binding:"required,min=1"`
+		Channel  string `json:"channel"binding:"required,min=1"`
+		APIKey   string `json:"apiKey"binding:"required,min=1"`
 		Endpoint string `json:"endpoint" binding:"required,min=1"`
 	}
 

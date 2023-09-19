@@ -2,9 +2,10 @@ package cms
 
 import (
 	"errors"
+
+	"github.com/bclonan/intent-api-go/main/model"
 	"github.com/gin-gonic/gin"
 	"github.com/mitchellh/mapstructure"
-	"kairos/main/model"
 )
 
 func GetPageContents(userRequestData model.RequestData, intentData map[string]interface{}) (gin.H, error) {

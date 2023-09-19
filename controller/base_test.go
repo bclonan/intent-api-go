@@ -4,12 +4,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/stretchr/testify/assert"
-	"kairos/main/model"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/bclonan/intent-api-go/main/model"
+	"github.com/gin-gonic/gin"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestBase(t *testing.T) {

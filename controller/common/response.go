@@ -1,9 +1,10 @@
 package common
 
 import (
-	"github.com/gin-gonic/gin"
-	"kairos/main/model"
 	"net/http"
+
+	"github.com/bclonan/intent-api-go/main/model"
+	"github.com/gin-gonic/gin"
 )
 
 // SendErrJSON

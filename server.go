@@ -2,12 +2,14 @@ package main
 
 import (
 	"fmt"
+	"io"
+	"os"
+
+	"github.com/bclonan/intent-api-go/main/config"
+	"github.com/bclonan/intent-api-go/main/router"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"io"
-	"kairos/main/config"
-	"kairos/main/router"
-	"os"
 )
 
 func init() {

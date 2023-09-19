@@ -4,15 +4,16 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"io/ioutil"
-	"kairos/main/config"
-	"kairos/main/controller/cms"
-	"kairos/main/controller/slack"
-	"kairos/main/controller/stripe"
-	"kairos/main/model"
 	"net/http"
+
+	"github.com/bclonan/intent-api-go/main/config"
+	"github.com/bclonan/intent-api-go/main/controller/cms"
+	"github.com/bclonan/intent-api-go/main/controller/slack"
+	"github.com/bclonan/intent-api-go/main/controller/stripe"
+	"github.com/bclonan/intent-api-go/main/model"
 	"github.com/fatih/structs"
+	"github.com/gin-gonic/gin"
 )
 
 var IntentFunctions = map[string]func(reqData model.RequestData, Intent map[string]interface{}) (gin.H, error){
@@ -110,7 +111,6 @@ func GetIntent(c *gin.Context) {
 	if resp.StatusCode != 200 {
 		SendErrJson("invalid response", c, resp.StatusCode)
 	}
-
 
 	if reqData.IntentKey == "" {
 		SendErrJson("No IntentKey Specified", c, 401)

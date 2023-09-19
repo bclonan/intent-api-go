@@ -5,6 +5,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
+	"net/http"
+	"strconv"
+
+	"github.com/bclonan/intent-api-go/main/model"
+	"github.com/bclonan/intent-api-go/main/utils/openssl"
+
+	"github.com/bclonan/intent-api-go/main/config"
 	"github.com/gin-gonic/gin"
 	"github.com/mitchellh/mapstructure"
 	"github.com/stripe/stripe-go"
@@ -12,12 +20,6 @@ import (
 	"github.com/stripe/stripe-go/client"
 	"github.com/stripe/stripe-go/product"
 	"github.com/stripe/stripe-go/sub"
-	"io/ioutil"
-	"kairos/main/config"
-	"kairos/main/model"
-	"kairos/main/utils/openssl"
-	"net/http"
-	"strconv"
 )
 
 func SaveAPIKey(userRequestData model.RequestData, intentData map[string]interface{}) (gin.H, error) {
@@ -32,7 +34,6 @@ func SaveAPIKey(userRequestData model.RequestData, intentData map[string]interfa
 		return nil, err
 	}
 
-
 	type InternalStripeDataResponse struct {
 		Endpoint string `json:"endpoint" binding:"required,min=1"`
 	}
@@ -43,11 +44,9 @@ func SaveAPIKey(userRequestData model.RequestData, intentData map[string]interfa
 		return nil, err
 	}
 
-
 	// decrypt key here
 	// set is as the API key
 	//DecryptedKey := StripeKeyDecrypt(reqData.Value)
-
 
 	err = VerifyStripeKey(u.APIKey)
 	if err != nil {
@@ -117,7 +116,7 @@ func CreateCharge(userRequestData model.RequestData, intentData map[string]inter
 		Email       string `json:"email,omitempty"`
 		CustomerID  string `json:"customerId,omitempty"`
 		ApiKey      string `json:"apiKey"binding:"required,min=1"`
-		Endpoint string `json:"endpoint" binding:"required,min=1"`
+		Endpoint    string `json:"endpoint" binding:"required,min=1"`
 	}
 	iResponse := InternalStripeDataResponse{}
 	err := mapstructure.Decode(intentData, &iResponse)
@@ -186,8 +185,8 @@ func CreateSubscription(userRequestData model.RequestData, intentData map[string
 	mapstructure.Decode(userRequestData.Data, &userDataStripe)
 
 	type InternalStripeDataResponse struct {
-		Plan   string `json:"plan" binding:"required, min=1"`
-		ApiKey string `json:"apiKey" binding:"required,min=1"`
+		Plan     string `json:"plan" binding:"required, min=1"`
+		ApiKey   string `json:"apiKey" binding:"required,min=1"`
 		Endpoint string `json:"endpoint" binding:"required,min=1"`
 	}
 
